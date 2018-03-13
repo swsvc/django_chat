@@ -41,7 +41,6 @@ BASE_DIR = Path(__file__).ancestor(3)
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = get_env_variable('SECRET_KEY')
-print('secret key', SECRET_KEY)
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = get_env_variable('DEBUG') == 'True'
@@ -59,7 +58,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
-    'raven.contrib.django.raven_compat'
+    'raven.contrib.django.raven_compat',
+    'history',
 ]
 
 MIDDLEWARE = [
