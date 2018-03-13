@@ -1,0 +1,4 @@
+django==2.0.3
+psycopg2==2.7.3.2
+raven==6.3.0
+Unipath==1.1
