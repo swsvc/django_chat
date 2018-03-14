@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block js %}
+<script src="{% static 'js/jquery.min.js' %}"></script>
+<script src="{% static 'js/chat.js' %}"></script>
+
+<script>
+    $(document).ready(function(){
+        chat.initialize();
+
+        $('#submit').click(function(e) {
+            e.preventDefault();
+
+            var msg = $('#new_message').val();
+            chat.send_message(msg);
+            $('#new_message').val('');
+        });
+    });
+</script>
+{% endblock js %}
+
+{% block content %}
+<div class="chat_block">
+    <div id="status"></div>
+
+    <textarea id="chat" cols="60" rows="30" contenteditable="false"></textarea>
+    <br/>
+
+    <textarea name="new_message" id="new_message" cols="60" rows="2"></textarea>
+    <br/>
+    <input type="submit" id="submit" value="Send">
+</div>
+{% endblock content %}
