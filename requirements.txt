@@ -1,6 +1,7 @@
 channels==2.0.2
 channels-redis==2.1.0
 django==2.0.3
+django-allauth==0.34.0
 psycopg2==2.7.3.2
 raven==6.3.0
 Unipath==1.1

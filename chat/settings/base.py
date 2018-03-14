@@ -55,11 +55,15 @@ INSTALLED_APPS = [
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
+    'django.contrib.sites',
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
     'raven.contrib.django.raven_compat',
     'channels',
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
     'history',
 ]
 
@@ -105,13 +109,26 @@ CHANNEL_LAYERS = {
     }
 }
 
+# Allauth integration
+LOGIN_URL = '/accounts/login/'
+ACCOUNT_EMAIL_REQUIRED = False
+ACCOUNT_EMAIL_VERIFICATION = 'never'
+LOGIN_REDIRECT_URL = '/'
+
+SITE_ID = 1
+
+AUTHENTICATION_BACKENDS = (
+    'django.contrib.auth.backends.ModelBackend',
+    'allauth.account.auth_backends.AuthenticationBackend'
+)
+
 
 # Database
 # https://docs.djangoproject.com/en/2.0/ref/settings/#databases
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': get_env_variable('POSTGRES_DATABASE'),
         'USER': get_env_variable('POSTGRES_USER'),
         'PASSWORD': get_env_variable('POSTGRES_PASSWORD'),
