@@ -43,7 +43,7 @@ class ChatConsumer(WebsocketConsumer):
 
         room = Room.objects.filter(title=self.room_name).first()
         if room is None:
-            raise ValueError(f'Room {self.room_name} does not exist')
+            room = Room.objects.create(title=self.room_name)
 
         Message.objects.create(user=self.scope['user'], room=room, text=message)
 
