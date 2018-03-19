@@ -1,0 +1,43 @@
+version: '3'
+
+services:
+    postgres:
+        image: postgres:9.6.8
+        restart: unless-stopped
+        environment:
+            POSTGRES_USER: django_chat_test
+            POSTGRES_PASSWORD: v3rysecure
+            POSTGRES_DB: django_chat_test
+
+    redis:
+        image: redis:4.0
+        restart: unless-stopped
+
+    django-chat:
+        build: .
+        environment:
+            DJANGO_SETTINGS_MODULE: chat.settings.development
+            SECRET_KEY: "^PK_~g~a}pV^119G%F-&sHZ]AQ&>7b7p@t&g~KUHPKe67r#bFT"
+            DEBUG: 'True'
+
+            POSTGRES_DATABASE: django_chat_test
+            POSTGRES_USER: django_chat_test
+            POSTGRES_PASSWORD: v3rysecure
+            POSTGRES_HOST: postgres
+            POSTGRES_PORT: 5432
+
+            REDIS_HOST: redis
+
+            RAVEN_DSN: shdfjks84yrshidf
+        volumes:
+            - .:/var/www/django_chat
+        ports:
+            - '8000:8000'
+        command:
+            bash -c "cd /var/www/django_chat && python manage.py collectstatic --no-input && python manage.py migrate --no-input && python manage.py runserver 0.0.0.0:8000"
+        depends_on:
+            - postgres
+            - redis
+        links:
+            - postgres
+            - redis
